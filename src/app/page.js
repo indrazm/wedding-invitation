@@ -8,7 +8,15 @@ import { Page7 } from "@/components/Page7";
 import Image from "next/image";
 
 async function getVisitorById(id) {
-  const res = await fetch(`https://wedding-invitation-mocha-pi.vercel.app/api/v1/visitor/${id}`, {
+  const res = await fetch(`wedding-invitation-mocha-pi.vercel.app/api/v1/visitor/${id}`, {
+    cache: "no-store",
+  });
+  const { data } = await res.json();
+  return data;
+}
+
+async function getWishes() {
+  const res = await fetch("wedding-invitation-mocha-pi.vercel.app/api/v1/wish", {
     cache: "no-store",
   });
   const { data } = await res.json();
@@ -24,6 +32,7 @@ export default async function Home({ searchParams }) {
     const { name: GuestName } = theVisitor;
     name = GuestName;
   }
+  const wishes = await getWishes();
 
   return (
     <div className="bg-#e4b8ae">
@@ -57,11 +66,7 @@ export default async function Home({ searchParams }) {
       <Page4 />
       <Page5 />
       <Page7 />
-      <Page6 name={name} />
+      <Page6 name={name} wishes={wishes} />
     </div>
   );
 }
-
-// just tested
-// just tested
-// just tested

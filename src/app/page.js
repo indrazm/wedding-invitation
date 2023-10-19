@@ -9,10 +9,9 @@ import Image from "next/image";
 
 async function getVisitorById(id) {
   const res = await fetch(`https://wedding-invitation-mocha-pi.vercel.app/api/v1/visitor/${id}`, {
-    cache: "no-cache",
+    cache: "no-store",
   });
   const { data } = await res.json();
-  console.log(data);
   return data;
 }
 
